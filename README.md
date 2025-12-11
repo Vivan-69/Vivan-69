@@ -15,7 +15,7 @@
 
 <img align="right" alt="Coding" width="400" src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif">
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=vivan-69&label=Profile%20views&color=0e75b6&style=flat" alt="vivan-69" /> </p>
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=Vivan-69&label=Profile%20views&color=0e75b6&style=flat" alt="vivan-69" /> </p>
 
 - 🔭 I'm currently working on **a Front end project**
 - 🌱 I'm currently learning **Designing Webpages Using three.js**
@@ -51,19 +51,19 @@
 <h3 align="left">📊 GitHub Stats:</h3>
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=vivan-69&show_icons=true&locale=en&layout=compact&theme=tokyonight" alt="vivan-69" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=Vivan-69&show_icons=true&locale=en&layout=compact&theme=tokyonight" alt="vivan-69" />
 </div>
 
 <br/>
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=vivan-69&show_icons=true&locale=en&theme=tokyonight" alt="vivan-69" />
+  <img src="https://github-readme-stats.vercel.app/api?username=Vivan-69&show_icons=true&locale=en&theme=tokyonight" alt="vivan-69" />
 </div>
 
 <br/>
 
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=vivan-69&theme=tokyonight" alt="vivan-69" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Vivan-69&theme=tokyonight" alt="vivan-69" />
 </div>
 
 <br/>
