@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivan Singh - 3D Banner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .name {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 25%, #f472b6 50%, #00d4ff 75%, #7c3aed 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 4s ease infinite, pulse 2s ease-in-out infinite;
+            letter-spacing: -2px;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: #a78bfa;
+            margin-top: 0.5rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(167, 139, 250, 0.8);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            font-size: 1.1rem;
+            color: #fff;
+            padding: 0.7rem 1.8rem;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            background: linear-gradient(#0a0a1a, #0a0a1a) padding-box, linear-gradient(135deg, #00d4ff, #7c3aed, #f472b6) border-box;
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .tech-item:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .tech-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .tech-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .tech-item:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 1s both;
+            pointer-events: auto;
+        }
+
+        .subtitle a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .subtitle a:hover {
+            color: #f472b6;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            }
+
+            to {
+                box-shadow: 0 0 40px rgba(0, 212, 255, 0.5), 0 0 60px rgba(244, 114, 182, 0.3);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+    <div class="scanline"></div>
+    <div class="overlay">
+        <h1 class="name">Vivan Singh</h1>
+        <p class="title">Front-End Developer</p>
+        <div class="tech-stack">
+            <span class="tech-item">⚡ JavaScript</span>
+            <span class="tech-item">🔷 TypeScript</span>
+            <span class="tech-item">⚛️ React</span>
+            <span class="tech-item">🎮 Three.js</span>
+        </div>
+        <p class="subtitle">
+            <a href="https://vivan-folio.vercel.app/" target="_blank">View Portfolio →</a>
+        </p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 1);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 5000;
+        const starPositions = new Float32Array(starCount * 3);
+        const starColors = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount * 3; i += 3) {
+            starPositions[i] = (Math.random() - 0.5) * 2000;
+            starPositions[i + 1] = (Math.random() - 0.5) * 2000;
+            starPositions[i + 2] = (Math.random() - 0.5) * 2000;
+            const color = new THREE.Color();
+            color.setHSL(0.6 + Math.random() * 0.2, 0.8, 0.6 + Math.random() * 0.4);
+            starColors[i] = color.r;
+            starColors[i + 1] = color.g;
+            starColors[i + 2] = color.b;
+        }
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+        const starMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
+        const starfield = new THREE.Points(starGeometry, starMaterial);
+        scene.add(starfield);
+
+        const centralSphereGeometry = new THREE.IcosahedronGeometry(3, 2);
+        const centralSphereMaterial = new THREE.MeshBasicMaterial({ color: 0x7c3aed, wireframe: true, transparent: true, opacity: 0.6 });
+        const centralSphere = new THREE.Mesh(centralSphereGeometry, centralSphereMaterial);
+        scene.add(centralSphere);
+
+        const coreGeometry = new THREE.SphereGeometry(2.5, 32, 32);
+        const coreMaterial = new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.3 });
+        const core = new THREE.Mesh(coreGeometry, coreMaterial);
+        scene.add(core);
+
+        const rings = [];
+        const ringColors = [0x00d4ff, 0x7c3aed, 0xf472b6];
+        for (let i = 0; i < 3; i++) {
+            const ringGeometry = new THREE.TorusGeometry(5 + i * 2, 0.05, 16, 100);
+            const ringMaterial = new THREE.MeshBasicMaterial({ color: ringColors[i], transparent: true, opacity: 0.7 });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = Math.PI / 2 + (i * 0.3);
+            ring.rotation.y = i * 0.5;
+            scene.add(ring);
+            rings.push(ring);
+        }
+
+        const orbitingSpheres = [];
+        const orbitColors = [0x00d4ff, 0x7c3aed, 0xf472b6, 0x22d3ee, 0xa855f7, 0xec4899];
+        for (let i = 0; i < 12; i++) {
+            const sphereGeometry = new THREE.SphereGeometry(0.3 + Math.random() * 0.3, 16, 16);
+            const sphereMaterial = new THREE.MeshBasicMaterial({ color: orbitColors[i % orbitColors.length], transparent: true, opacity: 0.8 });
+            const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+            sphere.userData = { orbitRadius: 8 + Math.random() * 8, orbitSpeed: 0.2 + Math.random() * 0.5, orbitOffset: Math.random() * Math.PI * 2, yAmplitude: 2 + Math.random() * 3, ySpeed: 0.5 + Math.random() * 0.5 };
+            scene.add(sphere);
+            orbitingSpheres.push(sphere);
+        }
+
+        const geometries = [new THREE.OctahedronGeometry(1, 0), new THREE.TetrahedronGeometry(1, 0), new THREE.IcosahedronGeometry(0.8, 0), new THREE.BoxGeometry(1, 1, 1), new THREE.ConeGeometry(0.6, 1.2, 6)];
+        const floatingShapes = [];
+        for (let i = 0; i < 30; i++) {
+            const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+            const material = new THREE.MeshBasicMaterial({ color: orbitColors[Math.floor(Math.random() * orbitColors.length)], wireframe: true, transparent: true, opacity: 0.4 + Math.random() * 0.3 });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.x = (Math.random() - 0.5) * 60;
+            mesh.position.y = (Math.random() - 0.5) * 40;
+            mesh.position.z = (Math.random() - 0.5) * 40 - 20;
+            mesh.scale.setScalar(0.5 + Math.random() * 1.5);
+            mesh.userData = { rotationSpeed: { x: (Math.random() - 0.5) * 0.02, y: (Math.random() - 0.5) * 0.02, z: (Math.random() - 0.5) * 0.01 }, floatSpeed: 0.3 + Math.random() * 0.7, floatOffset: Math.random() * Math.PI * 2 };
+            scene.add(mesh);
+            floatingShapes.push(mesh);
+        }
+
+        const trailGeometry = new THREE.BufferGeometry();
+        const trailCount = 500;
+        const trailPositions = new Float32Array(trailCount * 3);
+        const trailVelocities = [];
+        for (let i = 0; i < trailCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 15 + Math.random() * 20;
+            trailPositions[i * 3] = Math.cos(angle) * radius;
+            trailPositions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+            trailPositions[i * 3 + 2] = Math.sin(angle) * radius;
+            trailVelocities.push({ x: (Math.random() - 0.5) * 0.05, y: (Math.random() - 0.5) * 0.05, z: (Math.random() - 0.5) * 0.05 });
+        }
+        trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+        const trailMaterial = new THREE.PointsMaterial({ size: 3, color: 0x7c3aed, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
+        const trails = new THREE.Points(trailGeometry, trailMaterial);
+        scene.add(trails);
+
+        const helixPoints1 = [], helixPoints2 = [];
+        for (let i = 0; i < 100; i++) {
+            const t = i / 100 * Math.PI * 4;
+            const y = (i / 100) * 40 - 20;
+            helixPoints1.push(new THREE.Vector3(Math.cos(t) * 3, y, Math.sin(t) * 3 - 25));
+            helixPoints2.push(new THREE.Vector3(Math.cos(t + Math.PI) * 3, y, Math.sin(t + Math.PI) * 3 - 25));
+        }
+        const helixGeometry1 = new THREE.BufferGeometry().setFromPoints(helixPoints1);
+        const helixGeometry2 = new THREE.BufferGeometry().setFromPoints(helixPoints2);
+        const helix1 = new THREE.Line(helixGeometry1, new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.5 }));
+        const helix2 = new THREE.Line(helixGeometry2, new THREE.LineBasicMaterial({ color: 0xf472b6, transparent: true, opacity: 0.5 }));
+        scene.add(helix1);
+        scene.add(helix2);
+
+        camera.position.z = 30;
+        let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        document.addEventListener('mousemove', (e) => { targetX = (e.clientX / window.innerWidth) * 2 - 1; targetY = (e.clientY / window.innerHeight) * 2 - 1; });
+
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+            mouseX += (targetX - mouseX) * 0.05;
+            mouseY += (targetY - mouseY) * 0.05;
+            starfield.rotation.y += 0.0002;
+            starfield.rotation.x += 0.0001;
+            centralSphere.rotation.x += 0.005;
+            centralSphere.rotation.y += 0.008;
+            core.scale.setScalar(1 + Math.sin(time * 2) * 0.1);
+            rings.forEach((ring, i) => { ring.rotation.z += 0.005 * (i + 1); ring.rotation.x = Math.PI / 2 + Math.sin(time + i) * 0.2; });
+            orbitingSpheres.forEach((sphere) => { const { orbitRadius, orbitSpeed, orbitOffset, yAmplitude, ySpeed } = sphere.userData; sphere.position.x = Math.cos(time * orbitSpeed + orbitOffset) * orbitRadius; sphere.position.z = Math.sin(time * orbitSpeed + orbitOffset) * orbitRadius; sphere.position.y = Math.sin(time * ySpeed + orbitOffset) * yAmplitude; });
+            floatingShapes.forEach((mesh) => { mesh.rotation.x += mesh.userData.rotationSpeed.x; mesh.rotation.y += mesh.userData.rotationSpeed.y; mesh.rotation.z += mesh.userData.rotationSpeed.z; mesh.position.y += Math.sin(time * mesh.userData.floatSpeed + mesh.userData.floatOffset) * 0.02; });
+            const positions = trails.geometry.attributes.position.array;
+            for (let i = 0; i < trailCount; i++) { positions[i * 3] += trailVelocities[i].x; positions[i * 3 + 1] += trailVelocities[i].y; positions[i * 3 + 2] += trailVelocities[i].z; const dist = Math.sqrt(positions[i * 3] ** 2 + positions[i * 3 + 2] ** 2); if (dist > 40 || dist < 5) { trailVelocities[i].x *= -1; trailVelocities[i].z *= -1; } }
+            trails.geometry.attributes.position.needsUpdate = true;
+            trails.rotation.y += 0.002;
+            helix1.rotation.y += 0.01;
+            helix2.rotation.y += 0.01;
+            camera.position.x += (mouseX * 8 - camera.position.x) * 0.02;
+            camera.position.y += (-mouseY * 5 - camera.position.y) * 0.02;
+            camera.lookAt(0, 0, 0);
+            renderer.render(scene, camera);
+        }
+        animate();
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    </script>
+</body>
+
+</html>
