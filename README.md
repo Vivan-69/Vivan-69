@@ -6,7 +6,7 @@
 </div>
 
 <h2 align="center">👋 Hi, I'm Vivan Singh</h2>
-<h3 align="center">A Budding FrontEnd Developer from I</h3>
+<h3 align="center">A Budding FrontEnd Developer from India</h3>
 
 <br/>
 
