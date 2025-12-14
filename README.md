@@ -70,9 +70,11 @@
 <br clear="both"/>
 
 <h3 align="center">📊 GitHub Stats:</h3>
-<div align="center">
-    <img src="https://streak-stats.demolab.com?user=Vivan-69&theme=dark&t=2" alt="Vivan-69" />
-</div>
+    <!-- Streak Stats: Simplified to reduce timeout risk -->
+    <img src="https://streak-stats.demolab.com?user=Vivan-69&t=3" alt="Vivan-69" />
+    <br/>
+    <!-- Backup: Standard GitHub Stats (Highly Reliable) -->
+    <img src="https://github-readme-stats.vercel.app/api?username=Vivan-69&show_icons=true&theme=dark" alt="Vivan-69 Stats" />
 
 <div align="center">
     <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=000000,1a1a1a,2b2b2b&height=100&section=footer" alt="footer"/>
