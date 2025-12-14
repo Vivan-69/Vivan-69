@@ -71,7 +71,7 @@
 
 <h3 align="center">📊 GitHub Stats:</h3>
 <div align="center">
-    <img src="https://streak-stats.demolab.com?user=Vivan-69&theme=dark&ring=f0c420&fire=f0c420&currStreakNum=f0c420&side_main=ffffff&bg_color=000000&t=1" alt="Vivan-69" />
+    <img src="https://streak-stats.demolab.com?user=Vivan-69&theme=dark&t=2" alt="Vivan-69" />
 </div>
 
 <div align="center">
